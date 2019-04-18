@@ -35,12 +35,12 @@ void init(){
             printf("\033[31;40m[-] Init failed... %s exist.\033[0m\n", CONFIGURE_FILE_PATH);
             printf("\033[32;40m[+] HFM find configure file!\033[0m\n");
             printf("\033[33;40m[~] So you didn't need to init!\033[0m\n");
+            system("clear");
         }else{
             file_link = fopen(CONFIGURE_FILE_PATH, "w+");
             fclose(file_link);
             printf("\033[32;40m[+] Init Success.\033[0m\n");
         }
-        exit(0);
     }else{
         printf("\033[33;40m[~] INIT HFM Program...\033[0m\n");
         if(mkdir(CONFIGURE_PATH, S_IRWXU) == FAILED_MKDIR){
@@ -52,6 +52,7 @@ void init(){
             printf("\033[32;40m[+] Init Success.\033[0m\n");
         }
     }
+
 }
 
 

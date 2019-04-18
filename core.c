@@ -1,4 +1,4 @@
-// @File:compress_core.c
+// @File:core.c
 // @Date:2019/04/11
 // @Update:2019/04/17
 // Author:Cat.1
@@ -22,18 +22,17 @@
 // Global var defined end
 
 int main(int argc, char *argv[]){
-    // file a;
-    // welcome_figlet();
-    // menu();
-    char *optstr = "s:c:u:d:hi";
+
+    char *optstr = "s:c:u:d:hv";
     int opterr = 0;
     int opt;
+    init();
 
     while((opt = getopt(argc, argv, optstr)) != -1){
         switch(opt){
             case 'v':
-                // print hfc version
-                printf("hfc version 0.0.1 beta\n");
+                welcome_figlet();
+                printf("\033[32;40m[+] HFM version 0.0.1 beta\033[0m\n");
                 return 0;
             case 'c':
                 // TODO add compress func
@@ -47,10 +46,6 @@ int main(int argc, char *argv[]){
                 // TODO add diff func
                 printf("diff check(path): %s\n", optarg);
                 break;
-            case 'i':
-                // process init argument
-                init();
-                break;
             case 'h':
                 // print help information
                 printf("Print help information...: %s\n", optarg);
@@ -58,9 +53,9 @@ int main(int argc, char *argv[]){
             case '?':
                 // argument error
                 if(strchr(optstr, optopt) == NULL){
-                    fprintf(stderr, "unknown option '-%c'\n", optopt);
+                    fprintf(stderr, "\033[31;40m[-] unknown option '-%c'\033[0m\n", optopt);
                 }else{
-                    fprintf(stderr, "argument need value '-%c'\n", optopt);
+                    fprintf(stderr, "\033[31;40m[-] argument need value '-%c'\033[0m\n", optopt);
                 }
                 return 1;
             }

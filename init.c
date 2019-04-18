@@ -4,6 +4,9 @@
 // Author:Cat.1
 
 #include <stdio.h>
+#include<errno.h>
+#define errno (*__error())
+
 
 void welcome_figlet(){
     const char HAFFMAN[500] = "\
@@ -25,27 +28,31 @@ void welcome_figlet(){
 
 
 void init(){
-    if(access(CONFIGURE_FILE_PATH, 0) == 0 ){
-        printf("HFC find configure file!\n");
-        printf("So you didn't need to init!\n");
+    FILE *file_link;
+    welcome_figlet();
+    if(access(CONFIGURE_PATH, 0) == 0 ){
+        if (access(CONFIGURE_FILE_PATH, 0) == 0){
+            printf("\033[31;40m[-] Init failed... %s exist.\033[0m\n", CONFIGURE_FILE_PATH);
+            printf("\033[32;40m[+] HFM find configure file!\033[0m\n");
+            printf("\033[33;40m[~] So you didn't need to init!\033[0m\n");
+        }else{
+            file_link = fopen(CONFIGURE_FILE_PATH, "w+");
+            fclose(file_link);
+            printf("\033[32;40m[+] Init Success.\033[0m\n");
+        }
         exit(0);
     }else{
-        printf("INIT HFC Program...");
-
-        welcome_figlet();
-
-        if(access(CONFIGURE_PATH, 0) == 0){
-
-        }
-        else{
-            if(mkdir(CONFIGURE_PATH, S_IRWXU) == FAILED_MKDIR){
-                // TODO Fix mkdir bug.
-                printf("Init failed... mkdir %s error.\n", CONFIGURE_PATH);
-            }
-            else{
-                // TODO add create configure file.
-                printf("Init Success.");
-            }
+        printf("\033[33;40m[~] INIT HFM Program...\033[0m\n");
+        if(mkdir(CONFIGURE_PATH, S_IRWXU) == FAILED_MKDIR){
+            printf("\033[31;40m[-] Init failed... mkdir %s error.\033[0m\n", CONFIGURE_PATH);
+            printf("\033[31;40m[-] Please check your have Permission to create dir(%s).\033[0m\n", CONFIGURE_PATH);
+        }else{
+            file_link = fopen(CONFIGURE_FILE_PATH, "w+");
+            fclose(file_link);
+            printf("\033[32;40m[+] Init Success.\033[0m\n");
         }
     }
 }
+
+
+

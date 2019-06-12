@@ -1,10 +1,13 @@
 // @File:init.c
 // @Date:2019/04/16
 // @Update:2019/04/17
+// @Update:2019/05/14
+// @Update:2019/06/02
+// @Update:2019/06/09
 // Author:Cat.1
 
 #include <stdio.h>
-#include<errno.h>
+#include <errno.h>
 #define errno (*__error())
 
 
@@ -35,7 +38,7 @@ void init(){
             printf("\033[31;40m[-] Init failed... %s exist.\033[0m\n", CONFIGURE_FILE_PATH);
             printf("\033[32;40m[+] HFM find configure file!\033[0m\n");
             printf("\033[33;40m[~] So you didn't need to init!\033[0m\n");
-            system("clear");
+            // system("clear");
         }else{
             file_link = fopen(CONFIGURE_FILE_PATH, "w+");
             fclose(file_link);

@@ -15,9 +15,9 @@ int InitQueue(SeqQueue * Q)
 int InputQueue(SeqQueue * Q, char x)
 {
 	if (Q->front == Q->rear && Q->tag == SOME)
-		return FULL;	//full
+		return FULL;
 
-	Q->elem[Q->rear] = x;	// printf("in = %c",x);
+	Q->elem[Q->rear] = x;
 	Q->rear = (Q->rear + 1) % Maxsize;
 	Q->length++;
 	Q->tag = SOME;

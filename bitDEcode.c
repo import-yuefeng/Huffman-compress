@@ -1,6 +1,4 @@
 
-
-//从队列里取8个字符（0、1），转换成一个字节
 MyType GetBits(SeqQueue * Q)
 {
 	MyType i, bits = 0;
@@ -15,11 +13,9 @@ MyType GetBits(SeqQueue * Q)
 		} else
 			break;
 	}
-
 	return bits;
 }
 
-//求最长（最短）编码长度
 void
 MaxMinLength(FILE * File, HTNode * ht, char **hc, short NLeaf, MyType * Max,
 	     MyType * Min)
@@ -39,7 +35,6 @@ MaxMinLength(FILE * File, HTNode * ht, char **hc, short NLeaf, MyType * Max,
 	}
 }
 
-//把出现过的字符编码表经过压缩写进文件
 short CodeToFile(FILE * fp, char **hc, short n, SeqQueue * Q, MyType * length)
 {
 	int i;

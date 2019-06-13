@@ -21,24 +21,24 @@
 
 int main(int argc, char *argv[]){
 
-    char *optstr = "s:c:u:d:hv";
+    char *optstr = "i:s:c:u:d:hv";
     int opterr = 0;
     int opt;
-    // init();
 	printf("\033[32;40m[+] Welcome use HFM Compress Program! ... \033[0m\n");
 
     while((opt = getopt(argc, argv, optstr)) != -1){
         switch(opt){
+            case 'i':
+                init();
+                return 0;
             case 'v':
                 welcome_figlet();
-                printf("\033[32;40m[+] HFM version 0.0.1 beta\033[0m\n");
+                printf("\033[32;40m[+] HFM version 0.1.0 beta\033[0m\n");
                 return 0;
             case 'c':
-                // TODO add compress func
-                printf("compress path: %s\n", optarg);
+                printf("Compress file: %s\n", optarg);
 				char rename[80];
 				Compress(optarg, rename);
-				printf("Press Enter to continue...");
 				getchar();
 				break;
             case 'u':
@@ -65,40 +65,3 @@ int main(int argc, char *argv[]){
     }
 	return 1;
 }
-
-
-// int main(int argc, char *argv[])
-// {
-// 	char choice, blank[] = "              ";
-// 	//      writeFile();
-// 	system("color 8a");
-// 	while (1) {
-// 		system("clear");	//清屏
-// 		puts("          * * * *Welcome use huffman encoder\\decoder* * *");
-// 		puts("          **********************^_^***********************");
-// 		puts("          *                                              *");
-// 		printf("          * %s 1 ]. Compress   %s*\n", blank, blank);
-// 		puts("          *                                              *");
-// 		printf("          * %s 2 ]. Uncompress%s *\n", blank, blank);
-// 		puts("          *                                              *");
-// 		printf("          * %s 3 ]. Exit  ^_^ %s *\n", blank, blank);
-// 		puts("          *                                              *");
-// 		puts("          ************************************************");
-// 		printf
-// 		    ("          (Apply to text file) Copyright 2011 By Bocai\n");
-// 		printf("          Choose (1 to 3):");
-// 		choice = getchar();
-
-// 		puts("");
-// 		getchar();
-// 		fflush(stdin);	//清空输入缓冲区域，否则键入的回车符将作为程序结尾处的scanf输入，此函数在stdio.h中
-// 		switch (choice) {
-// 		case '1':
-// 			Compress();
-// 			printf("Press Enter to continue...");
-// 			getchar();
-// 			break;
-// 		}
-// 	}
-// 	return 0;
-// }

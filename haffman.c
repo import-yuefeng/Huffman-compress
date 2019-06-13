@@ -48,16 +48,14 @@ int SortTree(HTNode * ht)
 	return i;
 }
 
-//求哈夫曼0-1字符编码表
 char **CrtHuffmanCode(HTNode * ht, short LeafNum)
-/*从叶子结点到根，逆向求每个叶子结点对应的哈夫曼编码*/
 {
 	char *cd, **hc;
 	int i, start, p, last;
 
-	hc = (char **)malloc((LeafNum) * sizeof(char *));	/*分配n个编码的头指针 */
+	hc = (char **)malloc((LeafNum) * sizeof(char *));
 
-	if (1 == LeafNum)	//只有一个叶子节点时 
+	if (1 == LeafNum) 
 	{
 		hc[0] = (char *)malloc((LeafNum + 1) * sizeof(char));
 		strcpy(hc[0], "0");
@@ -65,22 +63,22 @@ char **CrtHuffmanCode(HTNode * ht, short LeafNum)
 	}
 
 	cd = (char *)malloc((LeafNum + 1) * sizeof(char));
-	cd[LeafNum] = '\0';	/*从右向左逐位存放编码，首先存放编码结束符 */
+	cd[LeafNum] = '\0';
 	for (i = 0; i < LeafNum; i++) {
 		start = LeafNum;
 		last = i;
 		for (p = ht[i].parent; p != 0; p = ht[p].parent) {
 			if (ht[p].LChild == last)
-				cd[--start] = '0';	/*左分支标0 */
+				cd[--start] = '0';
 			else
-				cd[--start] = '1';	/*右分支标1 */
+				cd[--start] = '1';
 			last = p;
 		}
 		hc[i] = (char *)malloc((LeafNum - start) * sizeof(char));
 		strcpy(hc[i], &cd[start]);
-		//
-		printf("%3d号 %3c 码长:%2d;编码:%s\n", ht[i].ch, ht[i].ch,
-		       LeafNum - start, &cd[start]);
+		// copy [ start:\0 ]
+		printf("%3d: %3c CodeLength: %2d; Encode: %s; Weight: %2d\n", ht[i].ch, ht[i].ch,
+		       LeafNum - start, &cd[start], ht[i].weight);
 	}
 	free(cd);
 	return hc;

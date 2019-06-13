@@ -13,7 +13,7 @@ void Compress(char desFile[80], char rename[])
 	HTNode *ht = NULL;
 	char **hc = NULL, **Map = NULL, *p;
 
-	printf("filename after compressed:");
+	printf("Compressed filename: ");
 	scanf("%s", rename);
 	if ('\0' == rename[0]) {
 		printf("Enter is null!");
@@ -24,8 +24,8 @@ void Compress(char desFile[80], char rename[])
 	fp = fopen(desFile, "rb");
 
 	if (!fp || !compressFile) {
-		puts("Cannot open file.");
-		return;
+		printf("Cannot open file.");
+		exit(1);
 	}
 
 	ht = CreatHFM(fp, &LeafNum, &FileLength);
@@ -37,12 +37,14 @@ void Compress(char desFile[80], char rename[])
 	}
 	Q = (SeqQueue *) malloc(sizeof(SeqQueue));
 	InitQueue(Q);
-	// SEEK_SET:文件开头 SEEK_CUR:当前位置 SEEK_END:文件结尾
+	// SEEK_SET:文件开头 
+	// SEEK_CUR:当前位置 
+	// SEEK_END:文件结尾
 	hc = CrtHuffmanCode(ht, LeafNum);
 	Map = (char **)malloc(N * sizeof(char *));
 	if (!Map) {
-		puts("申请空间失败");
-		return;
+		printf("MemoryError");
+		exit(1);
 	}
 
 	for (i = 0; i < N; i++)
@@ -59,17 +61,20 @@ void Compress(char desFile[80], char rename[])
 
 	rewind(compressFile);
 	fseek(compressFile, sizeof(WeightType) + sizeof(MyType), SEEK_SET);
-	fwrite(&LeafNum, sizeof(short), 1, compressFile);	//写入叶子个数
-	fwrite(&maxLen, sizeof(MyType), 1, compressFile);	//最长码串长度
-	fwrite(&minLen, sizeof(MyType), 1, compressFile);	//最短码串长度
-	fwrite(&codeNum, sizeof(short), 1, compressFile);	//填写叶子编码压多少个
+	fwrite(&LeafNum, sizeof(short), 1, compressFile);
+	// LeafNum sum
+	fwrite(&maxLen, sizeof(MyType), 1, compressFile);
+	// maxLength
+	fwrite(&minLen, sizeof(MyType), 1, compressFile);
+	// minLength
+	fwrite(&codeNum, sizeof(short), 1, compressFile);	
+	// 填写叶子编码压多少个
 	fwrite(&finalLength, sizeof(MyType), 1, compressFile);
+	// finalLength
 	//printf("叶子共压：%d个,最后剩%d个\n\n",codeNum,finalLength);
 
 	fseek(compressFile, 2 * LeafNum * sizeof(MyType) + codeNum, SEEK_CUR);
 	fseek(fp, 0, SEEK_SET);
-	printf("Please wait a minute,compressing...");
-
 	while (count < FileLength) {
 		ch = fgetc(fp);    
 		++count;

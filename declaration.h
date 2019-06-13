@@ -56,17 +56,15 @@ typedef struct
 } SeqQueue;
 
 
-// FILE *fopen( const char * filename, const char * mode );
+typedef struct{
+	FILE *dst, *srt;
+    char filename[100];
+    char filepath[100];
 
-// typedef struct{
-//     FILE *fopen;
-//     char filename[100];
-//     char filepath[100];
-
-// } file;
+} hfmFile;
 
 
-// declare func start
+/* declare func start */
 
 // -------------------func declare start-----------------
 void welcome_figlet();
@@ -91,5 +89,4 @@ short CodeToFile(FILE * fp, char **hc, short n, SeqQueue * Q, MyType * length);
 // -------------------DEcode func declare end------------
 
 
-
-// declare func end
+/* declare func end */
